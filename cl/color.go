@@ -2,9 +2,9 @@
 * @Author: scottxiong
 * @Date:   2019-08-26 22:48:33
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-08-26 23:28:29
+* @Last Modified time: 2019-08-26 23:34:47
  */
-package color
+package cl
 
 import (
 	"github.com/fatih/color"

@@ -2,13 +2,14 @@
 * @Author: sottxiong
 * @Date:   2019-07-07 16:28:34
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-08-26 22:58:42
+* @Last Modified time: 2019-08-26 23:34:13
  */
 package cmd
 
 import (
 	"bufio"
 	"github.com/fatih/color"
+	"github.com/scott-x/gutils/cl"
 	"os"
 	"regexp"
 	"strings"
@@ -27,18 +28,8 @@ type Questions struct {
 }
 
 var (
-	cyan       = color.New(color.FgCyan)
-	green      = color.New(color.FgGreen)
-	blue       = color.New(color.FgBlue)
-	red        = color.New(color.FgRed)
-	yellow     = color.New(color.FgYellow)
-	boldCyan   = cyan.Add(color.Bold)
-	boldGreen  = green.Add(color.Bold)
-	boldYellow = yellow.Add(color.Bold)
-	boldBlue   = blue.Add(color.Bold)
-	boldRed    = red.Add(color.Bold)
-	questions  = &Questions{}
-	answers    = map[string]string{}
+	questions = &Questions{}
+	answers   = map[string]string{}
 )
 
 func AddQuestion(name, tip, retip, re string) *Questions {
@@ -59,7 +50,7 @@ func ask_question(q string, color *color.Color) string {
 }
 
 func command(q *Question) {
-	data := ask_question(q.Tip, boldGreen)
+	data := ask_question(q.Tip, cl.BoldGreen)
 	re := regexp.MustCompile(q.Re)
 	for {
 		match := re.FindString(data)
@@ -67,7 +58,7 @@ func command(q *Question) {
 			answers[q.Name] = data
 			break
 		} else {
-			data = ask_question(q.ReTip, boldRed)
+			data = ask_question(q.ReTip, cl.BoldRed)
 		}
 	}
 	//q.Do()

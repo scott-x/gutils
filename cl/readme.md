@@ -2,11 +2,11 @@
 
 ```golang
 import (
-   "github.com/scott-x/gutils/color"
+   "github.com/scott-x/gutils/cl"
 )
 
 func main(){
-	color.BoldYellow.Printf("hello, my name is Scott \n")
+	cl.BoldYellow.Printf("hello, my name is Scott \n")
 	/*
 	color option: BoldRed     
 	BoldGreen   

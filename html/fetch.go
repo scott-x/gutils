@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-07-25 15:04:50
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-07-25 15:05:02
+* @Last Modified time: 2019-08-26 23:40:20
  */
 package html
 
@@ -51,6 +51,7 @@ func determinEncoding(r io.Reader) encoding.Encoding {
 		log.Printf("Fetcher error: %v", err)
 		return unicode.UTF8
 	}
+
 	e, _, _ := charset.DetermineEncoding(bytes, "")
 	return e
 }

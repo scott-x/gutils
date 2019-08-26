@@ -2,7 +2,7 @@
 * @Author: sottxiong
 * @Date:   2019-07-07 16:28:34
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-07-25 15:57:10
+* @Last Modified time: 2019-08-26 22:58:42
  */
 package cmd
 
@@ -74,6 +74,10 @@ func command(q *Question) {
 }
 
 func Exec() map[string]string {
+	//Exec()第二次执行的时候会出现bug，先把answers清空
+	if len(answers) > 0 {
+		answers = map[string]string{}
+	}
 	for _, question := range questions.qs {
 		command(&question)
 	}

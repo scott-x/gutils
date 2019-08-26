@@ -6,7 +6,7 @@
 - `func Rename(oldName, newName string)`:rename the file or folder
 - `func WriteBuf(file, data string) `: wirte a string data into the file
 - `func WriteString(file, data string) `wirte a string data into the file
-- `func Copy(inputFile, outputFile string) `: copy file
+- `func Copy(from, to string) `: copy file, must specify what to it is.
 - `func CopyFile(srcName, dstName string) (written int64, err error)`:copy file
 - `func CopyAndReplace(inputFile, outputFile string, replace map[string]string)`:copy and replace
 - `func CreateDirIfNotExist(dir string)`: similar like `mkdir -p /a/b/c`

@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-08-26 22:48:33
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-08-26 22:50:38
+* @Last Modified time: 2019-08-26 23:28:29
  */
 package color
 
@@ -19,7 +19,7 @@ var (
 	magenta     = color.New(color.FgMagenta)
 	white       = color.New(color.FgWhite)
 	BoldRed     = red.Add(color.Bold)
-	boldGreen   = green.Add(color.Bold)
+	BoldGreen   = green.Add(color.Bold)
 	BoldYellow  = yellow.Add(color.Bold)
 	BoldMagenta = magenta.Add(color.Bold)
 	BoldBlue    = blue.Add(color.Bold)

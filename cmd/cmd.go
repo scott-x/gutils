@@ -2,7 +2,7 @@
 * @Author: sottxiong
 * @Date:   2019-07-07 16:28:34
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-08-26 23:54:19
+* @Last Modified time: 2019-08-26 23:57:53
  */
 package cmd
 
@@ -74,10 +74,11 @@ func Exec() map[string]string {
 			command(&question)
 		}
 		did = true
-		return answers
+
 	} else {
 		for _, question := range questions.qs[index:] {
 			command(&question)
 		}
 	}
+	return answers
 }

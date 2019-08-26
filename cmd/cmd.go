@@ -2,7 +2,7 @@
 * @Author: sottxiong
 * @Date:   2019-07-07 16:28:34
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-08-26 23:34:13
+* @Last Modified time: 2019-08-26 23:54:19
  */
 package cmd
 
@@ -28,8 +28,10 @@ type Questions struct {
 }
 
 var (
-	questions = &Questions{}
-	answers   = map[string]string{}
+	questions     = &Questions{}
+	answers       = map[string]string{}
+	index     int = 0
+	did           = false
 )
 
 func AddQuestion(name, tip, retip, re string) *Questions {
@@ -65,12 +67,17 @@ func command(q *Question) {
 }
 
 func Exec() map[string]string {
-	//Exec()第二次执行的时候会出现bug，先把answers清空
-	if len(answers) > 0 {
-		answers = map[string]string{}
+	//Exec()第二次执行的时候会出现bug
+	if did {
+		for _, question := range questions.qs {
+			index++
+			command(&question)
+		}
+		did = true
+		return answers
+	} else {
+		for _, question := range questions.qs[index:] {
+			command(&question)
+		}
 	}
-	for _, question := range questions.qs {
-		command(&question)
-	}
-	return answers
 }

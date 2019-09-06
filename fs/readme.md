@@ -13,6 +13,6 @@
 - `func CopyFolder(src, des string) error`:copy folder, for example: `CopyFolder("/Users/apple/go/src/github.com/scott-x/gutils", "/Users/apple/desktop/a")` :copy all files from gutils to folder `a`, not include folder `gutils`
 - `func IsExist(file string) bool`: check file or folder if exists
 - `func ReadAndReplace(file string, replace map[string]string) error`: read file and replace it's content with map[string]string{"old1":"new1","old2":"new2"}
-- `func ReadFile1(file string) string`: read the file and get the string content
+- `func ReadFile1(file string) (string, error)`: read the file and get the string content
 
 

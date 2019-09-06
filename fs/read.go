@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-07-25 17:14:40
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-09-06 14:51:38
+* @Last Modified time: 2019-09-06 15:00:12
  */
 package fs
 
@@ -15,12 +15,12 @@ import (
 	"strings"
 )
 
-func ReadFile1(file string) string {
+func ReadFile1(file string) (string, error) {
 	content, err := ioutil.ReadFile(file)
 	if err != nil {
-		return nil
+		return "", err
 	}
-	return string(content)
+	return string(content), nil
 }
 
 func ReadAndReplace(file string, replace map[string]string) error {

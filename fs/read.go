@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-07-25 17:14:40
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-09-06 14:40:50
+* @Last Modified time: 2019-09-06 14:51:38
  */
 package fs
 
@@ -18,7 +18,7 @@ import (
 func ReadFile1(file string) string {
 	content, err := ioutil.ReadFile(file)
 	if err != nil {
-		return err
+		return nil
 	}
 	return string(content)
 }

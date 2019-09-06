@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-07-25 17:14:40
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-07-25 18:37:56
+* @Last Modified time: 2019-09-06 14:40:50
  */
 package fs
 
@@ -14,6 +14,27 @@ import (
 	"os"
 	"strings"
 )
+
+func ReadFile1(file string) string {
+	content, err := ioutil.ReadFile(file)
+	if err != nil {
+		return err
+	}
+	return string(content)
+}
+
+func ReadAndReplace(file string, replace map[string]string) error {
+	content, err := ioutil.ReadFile(file)
+	if err != nil {
+		return err
+	}
+	var newContent string
+	for k, v := range replace {
+		newContent = strings.ReplaceAll(string(content), k, v)
+	}
+	WriteString(file, newContent)
+	return nil
+}
 
 func ReadFile(file string) string {
 	/*

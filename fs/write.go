@@ -51,3 +51,10 @@ func CreateDirIfNotExist(dir string) {
 		}
 	}
 }
+
+func IsExist(file string) bool {
+	if _, err := os.Stat(file); os.IsNotExist(err) {
+		return false
+	}
+	return true
+}

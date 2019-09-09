@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-09-05 21:47:47
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-09-05 21:58:14
+* @Last Modified time: 2019-09-09 17:06:08
  */
 package model
 
@@ -21,3 +21,10 @@ type Questions struct {
 type Tasks struct {
 	Names []string
 }
+
+type P struct {
+	Start int
+	End   int
+}
+
+type Ps []P

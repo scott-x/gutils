@@ -2,7 +2,7 @@
 * @Author: sottxiong
 * @Date:   2019-07-07 16:28:34
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-09-05 22:00:50
+* @Last Modified time: 2019-09-16 11:14:24
  */
 package cmd
 
@@ -28,6 +28,10 @@ func AddQuestion(name, tip, retip, re string) *model.Questions {
 	all++
 	questions.Qs = append(questions.Qs, model.Question{name, tip, retip, re})
 	return questions
+}
+
+func AskQuestion(q *model.SimpleQuestion) string {
+	return ask_question(q.Tip, cl.BoldGreen)
 }
 
 func ask_question(q string, color *color.Color) string {

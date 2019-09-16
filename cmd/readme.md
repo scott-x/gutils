@@ -4,6 +4,7 @@
 - `func AddTask(tasks ...string) string`: print the tasks and return the option you selected.
 - `func AddQuestion(name, tip, retip, re string) *model.Questions`
 - `func Exec() map[string]string`: return the result with map
+- `func AskQuestion(q *model.SimpleQuestion) string`
 
 ```golang
 package main

@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-09-05 21:47:47
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-09-16 11:10:30
+* @Last Modified time: 2019-09-16 11:21:19
  */
 package model
 
@@ -15,8 +15,7 @@ type Question struct {
 }
 
 type SimpleQuestion struct {
-	Name string
-	Tip  string
+	Tip string
 }
 type Questions struct {
 	Qs []Question

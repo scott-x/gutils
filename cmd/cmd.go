@@ -2,7 +2,7 @@
 * @Author: sottxiong
 * @Date:   2019-07-07 16:28:34
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-09-16 11:14:24
+* @Last Modified time: 2019-09-16 11:21:45
  */
 package cmd
 
@@ -30,7 +30,10 @@ func AddQuestion(name, tip, retip, re string) *model.Questions {
 	return questions
 }
 
-func AskQuestion(q *model.SimpleQuestion) string {
+func AskQuestion(tip string) string {
+	q := &model.SimpleQuestion{
+		Tip: tip,
+	}
 	return ask_question(q.Tip, cl.BoldGreen)
 }
 

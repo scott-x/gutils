@@ -65,7 +65,7 @@ func command(q *model.Question) {
 	cmded++
 }
 
-func AddTask(tip string, color int, tasks ...string) string {
+func AddTask(tip string, color_option int, tasks ...string) string {
 	ts := model.Tasks{}
 	for _, t := range tasks {
 		ts.Names = append(ts.Names, t)
@@ -73,7 +73,7 @@ func AddTask(tip string, color int, tasks ...string) string {
 	tasks_length := len(ts.Names)
 	//color selection
 	var my_color *color.Color
-	switch color {
+	switch color_option {
 	case 1:
 		my_color = cl.BoldRed
 	case 2:

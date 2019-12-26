@@ -3,7 +3,7 @@
 ## API
 - `func AddTask(tip string, color int, tasks ...string) string`: print the tasks and return the option you selected. If you pass `""` to tip, it will use build-in tip, otherwise it will use customed tip; color is a int number, which ranges from 1-7, default 6.
 
-<table class="gridtable">
+<table class="gridtable" style="margin-left: 35px;">
     <tr>
         <td>number</td>
         <td>color</td>

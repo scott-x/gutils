@@ -2,7 +2,7 @@
 * @Author: sottxiong
 * @Date:   2019-07-07 16:28:34
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-09-16 11:21:45
+* @Last Modified time: 2019-12-27 00:13:21
  */
 package cmd
 
@@ -65,17 +65,42 @@ func command(q *model.Question) {
 	cmded++
 }
 
-func AddTask(tasks ...string) string {
+func AddTask(tip string, color int, tasks ...string) string {
 	ts := model.Tasks{}
 	for _, t := range tasks {
 		ts.Names = append(ts.Names, t)
 	}
 	tasks_length := len(ts.Names)
-	if tasks_length == 1 {
-		cl.BoldMagenta.Printf("What you expected to do?\n")
-	} else {
-		cl.BoldMagenta.Printf("What you expected to do? Select the number 1-%d: \n", tasks_length)
+	//color selection
+	var my_color *color.Color
+	switch color {
+	case 1:
+		my_color = cl.BoldRed
+	case 2:
+		my_color = cl.BoldBlue
+	case 3:
+		my_color = cl.BoldMagenta
+	case 4:
+		my_color = cl.BoldYellow
+	case 5:
+		my_color = cl.BoldWhite
+	case 6:
+		my_color = cl.BoldCyan
+	default:
+		my_color = cl.BoldCyan
 	}
+	//use default tips
+	if tip == "" {
+		if tasks_length == 1 {
+			my_color.Printf("What you expected to do?\n")
+		} else {
+			my_color.Printf("What you expected to do? Select the number 1-%d: \n", tasks_length)
+		}
+	} else {
+		//customed tip
+		my_color.Printf("%s\n", tip)
+	}
+
 	for k, t := range ts.Names {
 		cl.BoldCyan.Printf(" %d. %s\n", k+1, t)
 	}

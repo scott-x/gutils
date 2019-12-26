@@ -1,15 +1,15 @@
-### 注意
-处理字符串，最好转化为ASCII处理，因为字符串有些东西是看不见的，容易忽略，比如`\n`
+### Attention
+When dealing with string, we'd better convert to ASCII，for some characters con't be seen，such as `\n`
 
-### 常见ASCII
+### Common ASCII
 - space 32
 - enter 10
 
 ### API
-- `func FirstLetterToUpper(str string, mod int) string`: mod 可以取0，1
+- `func FirstLetterToUpper(str string, mod int) string`: mod can be set 0 or 1
 - `func FindAllSubPositions(str string, sub string) []int`:
-- `func GetWord(str string, i int) string `: i从1开始
-- `func RangeRune(str string)`: 辅助函数，打印调试用
+- `func GetWord(str string, i int) string `: i starts from 1
+- `func RangeRune(str string)`: the function is used for development.
 - `func GetPositions(content string, first, last string) *model.Ps`;
 
 ### rune

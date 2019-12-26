@@ -72,7 +72,7 @@ func AddTask(tip string, color_option int, tasks ...string) string {
 	}
 	tasks_length := len(ts.Names)
 	//color selection
-	var my_color *color.Color = cl.BoldGreen
+	var my_color color.Color 
 	switch color_option {
 	case 1:
 		my_color = cl.BoldRed

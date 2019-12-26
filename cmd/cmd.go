@@ -2,7 +2,7 @@
 * @Author: sottxiong
 * @Date:   2019-07-07 16:28:34
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-12-27 00:25:28
+* @Last Modified time: 2019-12-27 00:58:13
  */
 package cmd
 
@@ -72,7 +72,7 @@ func AddTask(tip string, color_option int, tasks ...string) string {
 	}
 	tasks_length := len(ts.Names)
 	//color selection
-	var my_color color.Color 
+	var my_color *color.Color
 	switch color_option {
 	case 1:
 		my_color = cl.BoldRed

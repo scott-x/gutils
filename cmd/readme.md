@@ -1,7 +1,7 @@
 ## useage
 
 ## API
-- `func AddTask(tip string, color int, tasks ...string) string`: print the tasks and return the option you selected. If you pass `""` to tip, it will use build-in tip, otherwise it will use customed tip; color is a int number, which ranges from 1-6, default 6.
+- `func AddTask(tip string, color int, tasks ...string) string`: print the tasks and return the option you selected. If you pass `""` to tip, it will use build-in tip, otherwise it will use customed tip; color is a int number, which ranges from 1-7, default 6.
 
 ```
 1 BoldRed
@@ -10,6 +10,7 @@
 4 BoldYellow
 5 BoldWhite
 6 BoldCyan
+7 BoldGreen
 ```
 
 - `func AddQuestion(name, tip, retip, re string) *model.Questions`
@@ -25,8 +26,8 @@ import (
 )
 
 func main() {
-
-	option := cmd.AddTask("swmiming", "eating", "sleeping")
+	// option := cmd.AddTask("swmiming", "eating", "sleeping") detatched
+	option := cmd.AddTask("", 7, "swmiming", "eating", "sleeping")
 	switch option {
 	case "1":
 		//do something

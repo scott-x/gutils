@@ -2,7 +2,7 @@
 * @Author: sottxiong
 * @Date:   2019-07-07 16:28:34
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-12-27 00:13:21
+* @Last Modified time: 2019-12-27 00:25:28
  */
 package cmd
 
@@ -86,6 +86,8 @@ func AddTask(tip string, color int, tasks ...string) string {
 		my_color = cl.BoldWhite
 	case 6:
 		my_color = cl.BoldCyan
+	case 7:
+		my_color = cl.BoldGreen
 	default:
 		my_color = cl.BoldCyan
 	}

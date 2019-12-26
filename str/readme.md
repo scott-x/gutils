@@ -1,5 +1,5 @@
 ### Attention
-When dealing with string, we'd better convert to ASCII，for some characters con't be seen，such as `\n`
+When dealing with string, we'd better convert it to ASCII 1st，for some characters can't be seen，such as `\n`
 
 ### Common ASCII
 - space 32

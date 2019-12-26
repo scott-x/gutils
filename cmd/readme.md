@@ -35,6 +35,7 @@
         <td>green</td>
     <tr>
 </table>
+
 - `func AddTask(tip string, color int, tasks ...string) string`: print the tasks and return the option you selected. If you pass `""` to tip, it will use build-in tip, otherwise it will use customed tip; color is a int number, which ranges from 1-7, default 6.
 - `func AddQuestion(name, tip, retip, re string) *model.Questions`
 - `func Exec() map[string]string`: return the result with map

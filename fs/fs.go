@@ -2,16 +2,64 @@
 * @Author: scottxiong
 * @Date:   2019-07-25 16:10:54
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-12-27 01:47:04
- */
+* @Last Modified time: 2019-12-28 03:01:36
+ref https://stackoverflow.com/questions/8824571/golang-determining-whether-file-points-to-file-or-directory
+*/
 package fs
 
 import (
 	"github.com/otiai10/copy"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 )
+
+func List(folder string) []string {
+	f := make([]string, 0)
+	files, err := ioutil.ReadDir(folder)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, file := range files {
+		f = append(f, file.Name())
+	}
+	return f
+}
+
+func ListFolder(folder string) []string {
+	f := make([]string, 0)
+	files, err := ioutil.ReadDir(folder)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, file := range files {
+		t := CheckFileType(file.Name())
+		if t == 1 {
+			f = append(f, file.Name())
+		}
+	}
+	return f
+}
+
+// just list current folder, if folder, will be ignored
+func ListFiles(folder string) []string {
+	f := make([]string, 0)
+	files, err := ioutil.ReadDir(folder)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, file := range files {
+		t := CheckFileType(file.Name())
+		if t == 0 {
+			f = append(f, file.Name())
+		}
+	}
+	return f
+}
 
 func CopyFolder(src, des string) error {
 	return copy.Copy(src, des)

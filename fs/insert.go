@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-12-27 22:27:30
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-12-28 00:32:00
+* @Last Modified time: 2019-12-28 00:53:27
  */
 package fs
 
@@ -36,7 +36,10 @@ func InsertAfter(insert *model.Insert) {
 	if insert.Old != "" {
 		new_str = strings.Replace(new_str, insert.Old, insert.New, -1)
 	}
-	WriteString(insert.File, new_str)
+	//if Line, Keywords or Replace not given, do nothing
+	if len(new_str) != len(content) {
+		WriteString(insert.File, new_str)
+	}
 }
 
 //insert the sentence before
@@ -64,5 +67,8 @@ func InsertBefore(insert *model.Insert) {
 	if insert.Old != "" {
 		new_str = strings.Replace(new_str, insert.Old, insert.New, -1)
 	}
-	WriteString(insert.File, new_str)
+	//if Line, Keywords or Replace not given, do nothing
+	if len(new_str) != len(content) {
+		WriteString(insert.File, new_str)
+	}
 }

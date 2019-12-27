@@ -25,11 +25,11 @@
 
 ```golang
 type Insert struct {
-	File     string
-	NewLine  string
-	Line     int
-	Keywords string
-	Replace
+	File     string //must be specified
+	NewLine  string //must be specified
+	Line     int   //optional
+	Keywords string //opional
+	Replace //optional
 }
 
 type Replace struct {

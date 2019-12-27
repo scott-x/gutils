@@ -18,3 +18,53 @@
 - `func GetRunningFolder() string `: get running folder, same as linux's command `pwd`
 - `func GetEnv(env string) string`:get the environment of the system
 - `func NewFile(filePath string) `: create file
+- `func InsertAfter(insert *model.Insert)`:insert after with replace function
+- `func InsertBefore(insert *model.Insert)`:insert before with replace function
+
+### import struct
+
+```golang
+type Insert struct {
+	File     string
+	NewLine  string
+	Line     int
+	Keywords string
+	Replace
+}
+
+type Replace struct {
+	Old string
+	New string
+}
+```
+
+### example
+
+```golang
+package main
+
+import (
+	"github.com/scott-x/gutils/fs"
+	"github.com/scott-x/gutils/model"
+)
+
+func main() {
+	i := &model.Insert{
+		File: "app.js",
+		NewLine: `
+import { Hello } from "hello";
+func add (a int,b int) int {
+	return a+b
+}
+		`,
+		Line:     1,
+		Keywords: "Component",
+		Replace: model.Replace{
+			Old: "Component",
+			New: "Scott",
+		},
+	}
+	fs.InsertBefore(i)
+}
+
+```

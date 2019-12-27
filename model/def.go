@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-09-05 21:47:47
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-09-16 11:21:19
+* @Last Modified time: 2019-12-28 00:35:22
  */
 package model
 
@@ -31,3 +31,16 @@ type P struct {
 }
 
 type Ps []P
+
+type Insert struct {
+	File     string
+	NewLine  string
+	Line     int
+	Keywords string
+	Replace
+}
+
+type Replace struct {
+	Old string
+	New string
+}

@@ -6,7 +6,7 @@ When dealing with string, we'd better convert it to ASCII 1st，for some charact
 - enter 10
 
 ### API
-- `func FirstLetterToUpper(str string, mod int) string`: mod can be set 0 or 1
+- `func FirstLetterToUpper(str string, mod int) string`: mod can be set 1(for single world) or -1(for all words)
 - `func FindAllSubPositions(str string, sub string) []int`:
 - `func GetWord(str string, i int) string `: i starts from 1
 - `func RangeRune(str string)`: the function is used for development.

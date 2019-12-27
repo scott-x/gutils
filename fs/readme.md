@@ -24,6 +24,7 @@
 ### import struct
 
 ```golang
+//if Line, Keywords or Replace not given, do nothing
 type Insert struct {
 	File     string //must be specified
 	NewLine  string //must be specified

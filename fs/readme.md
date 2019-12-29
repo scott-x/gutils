@@ -24,6 +24,7 @@
 - `func CheckFileType(file string) int`: 0 indicates file, 1 indicates folder, -1 means doesn't exist.
 - `func IsDirectory(path string) (bool, error) `: if path doesn't exist or path is a file, it will return false.
 - `func ListFiles(folder string) []string`:just list the files in current folder, if folder, will be ignored
+- `func Tab(n int) string`: tabale n
 
 ### import struct
 

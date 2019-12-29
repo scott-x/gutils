@@ -40,6 +40,8 @@
 - `func AddQuestion(name, tip, retip, re string) *model.Questions`
 - `func Exec() map[string]string`: return the result with map
 - `func AskQuestion(tip string) string `
+- `func Info(str string)`: print info
+- `func Warning(str string)`: print warning info
 
 ```golang
 package main

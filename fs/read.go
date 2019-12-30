@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-07-25 17:14:40
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-09-06 15:00:12
+* @Last Modified time: 2019-12-30 15:05:56
  */
 package fs
 
@@ -24,7 +24,7 @@ func ReadFile1(file string) (string, error) {
 }
 
 func ReadAndReplace(file string, replace map[string]string) error {
-	content, err := ioutil.ReadFile(file)
+	content, err := ReadFile1(file)
 	if err != nil {
 		return err
 	}

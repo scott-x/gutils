@@ -9,6 +9,8 @@ os.O_CREATE：创建：如果指定文件不存在，就创建该文件。
 os.O_TRUNC：截断：如果指定文件已存在，就将该文件的长度截为0。
 在读文件的时候，文件的权限是被忽略的，所以在使用 OpenFile 时传入的第三个参数可以用0。而在写文件时，
 不管是 Unix 还是 Windows，都需要使用 0666。
+
+ref :https://golangbot.com/write-files/
 */
 
 package fs
@@ -16,6 +18,7 @@ package fs
 import (
 	"bufio"
 	"fmt"
+	_ "log"
 	"os"
 )
 
@@ -37,10 +40,28 @@ func WriteBuf(file, data string) {
 	outputWriter.Flush()
 }
 
+// func WriteString(file, data string) {
+// 	f, _ := os.OpenFile(file, os.O_CREATE|os.O_WRONLY, 0666) // 要想写入数据，许给0666的写入权限
+// 	defer f.Close()
+// 	f.WriteString(data)
+// }
+
 func WriteString(file, data string) {
-	f, _ := os.OpenFile(file, os.O_CREATE|os.O_WRONLY, 0666) // 要想写入数据，许给0666的写入权限
-	defer f.Close()
-	f.WriteString(data)
+	f, err := os.Create(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+	_, err = f.WriteString(data)
+	if err != nil {
+		log.Fatal(err)
+		f.Close()
+		return
+	}
+	err = f.Close()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 }
 
 func CreateDirIfNotExist(dir string) {

@@ -18,7 +18,7 @@ package fs
 import (
 	"bufio"
 	"fmt"
-	_ "log"
+	"log"
 	"os"
 )
 

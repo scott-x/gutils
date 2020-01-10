@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-12-27 01:52:12
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2020-01-10 22:18:58
+* @Last Modified time: 2020-01-10 23:21:39
  */
 package t
 
@@ -41,6 +41,8 @@ func GetTime(type_t string) string {
 		t = time1.Format("2006-01-02 15:04:05")
 	case "yyyymmdd":
 		t = time1.Format("20060102")
+	case "yyyymm":
+		t = time1.Format("200601")
 	case "yyyy":
 		t = time1.Format("2006")
 	case "yyyy年":

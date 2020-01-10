@@ -20,10 +20,11 @@
 - `func NewFile(filePath string) `: create file
 - `func InsertAfter(insert *model.Insert)`:insert after with replace function
 - `func InsertBefore(insert *model.Insert)`:insert before with replace function
-- `func List(folder string) []string `: list the folder and files in current folder, doesn't loop inner folder.
 - `func CheckFileType(file string) int`: 0 indicates file, 1 indicates folder, -1 means doesn't exist.
 - `func IsDirectory(path string) (bool, error) `: if path doesn't exist or path is a file, it will return false.
-- `func ListFiles(folder string) []string`:just list the files in current folder, if folder, will be ignored
+- `func List(folder string) []string `: list the folder and files in current folder, doesn't loop inner folder.
+- `func ListFiles(folder string) []string`:just list the files in current folder
+- `func ListFolder(folder string) []string`:only list folder in current folder
 - `func Tab(n int) string`: tabale n
 
 ### import struct

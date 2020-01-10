@@ -1,7 +1,7 @@
 # package t
 
 ### API
-- `func GetRecentDays(Days int) []string `: Days cna be unsigned value
+- `func GetRecentDays(Days int) []string `: Days can be negative value
 - `func GetTime(type_t string) string`: get time
 
 ### options of type_t
@@ -21,5 +21,7 @@
 "hh时mm分"            :"15时04分"
 "hh时mm分ss秒"        :"15时04分05秒"
 ""                   :"2006-01-02 15:04:05"
+"yyyy":              :"2006"	
+"yyyy年"             :"2006年"
 ```
 

@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-12-27 01:52:12
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-12-27 02:28:00
+* @Last Modified time: 2020-01-10 22:18:58
  */
 package t
 
@@ -14,8 +14,17 @@ func GetRecentDays(Days int) []string {
 	currentTime := time.Now()
 	var times []time.Time
 	var arr []string
-	for i := 0; i < Days; i++ {
-		times = append(times, currentTime.AddDate(0, 0, i))
+
+	if Days >= 0 {
+		for i := 0; i < Days; i++ {
+			times = append(times, currentTime.AddDate(0, 0, i))
+		}
+	}
+
+	if Days < 0 {
+		for i := 0; i < -Days; i++ {
+			times = append(times, currentTime.AddDate(0, 0, -i))
+		}
 	}
 
 	for _, t := range times {
@@ -32,6 +41,10 @@ func GetTime(type_t string) string {
 		t = time1.Format("2006-01-02 15:04:05")
 	case "yyyymmdd":
 		t = time1.Format("20060102")
+	case "yyyy":
+		t = time1.Format("2006")
+	case "yyyy年":
+		t = time1.Format("2006年")
 	case "yyyy年mm月dd日":
 		t = time1.Format("2006年01月02日")
 	case "yyyy-mm-dd":

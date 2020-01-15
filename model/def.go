@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-09-05 21:47:47
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2020-01-14 17:56:11
+* @Last Modified time: 2020-01-15 08:37:17
  */
 package model
 
@@ -43,19 +43,4 @@ type Insert struct {
 type Replace struct {
 	Old string
 	New string
-}
-
-//excel
-type XLS struct {
-	Name string
-}
-
-type XLSX struct {
-	Name string
-}
-
-type Position struct {
-	sheet_index int //starts from 0
-	row         int
-	col         int
 }

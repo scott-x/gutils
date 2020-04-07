@@ -2,9 +2,19 @@
 * @Author: scottxiong
 * @Date:   2019-09-05 21:47:47
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2020-01-15 08:37:17
+* @Last Modified time: 2020-04-07 16:54:37
  */
 package model
+
+type DBConfig struct {
+	Driver   string
+	Username string
+	Password string
+	Host     string
+	Port     string
+	Database string
+	PoolSize int
+}
 
 type Question struct {
 	Name  string

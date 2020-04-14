@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-07-25 17:14:40
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-12-30 15:05:56
+* @Last Modified time: 2020-04-14 17:48:51
  */
 package fs
 
@@ -28,11 +28,10 @@ func ReadAndReplace(file string, replace map[string]string) error {
 	if err != nil {
 		return err
 	}
-	var newContent string
 	for k, v := range replace {
-		newContent = strings.ReplaceAll(string(content), k, v)
+		content = strings.ReplaceAll(string(content), k, v)
 	}
-	WriteString(file, newContent)
+	WriteString(file, content)
 	return nil
 }
 

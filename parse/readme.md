@@ -1,5 +1,8 @@
 # package parse
 
+### API
+- `func GetTables(sqlFileName string) *model.Tables`: parse sql file
+
 ### parse sql
 
 ```golang

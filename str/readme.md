@@ -5,7 +5,6 @@ When dealing with string, we'd better convert it to ASCII 1st，for some charact
 - space 32
 - enter 10
 - tab 9
-- 
 - * 42
 - 0 48
 - A 65
@@ -24,6 +23,28 @@ more information, [click here](http://www.asciitable.com/)
 
 ### rune
 ```
+#golang中string取索引值得到的是unicode，unicode兼容ASCII，比ASCII范围更广
 a := "hello"
 fmt.Println(a[0]) //104
+
+s := "你好啊"
+fmt.Println(s[0]) //228
+```
+
+### `func GetContentBetween(reource string, A string, B string) string`
+```golang
+package main
+
+import (
+	"fmt"
+	"github.com/scott-x/gutils/str"
+)
+
+func main() {
+	sub := str.GetContentBetween("hello (wold(a,b) yds", "wold(", ")")
+	fmt.Println(sub)
+}
+```
+```
+a,b
 ```

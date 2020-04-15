@@ -5,7 +5,7 @@ When dealing with string, we'd better convert it to ASCII 1st，for some charact
 - space 32
 - enter 10
 - tab 9
-- * 42
+- `*` 42
 - 0 48
 - A 65
 - a 97

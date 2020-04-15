@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-09-09 16:59:49
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2019-09-09 17:56:48
+* @Last Modified time: 2020-04-15 19:19:08
  */
 package str
 
@@ -11,6 +11,30 @@ import (
 	"github.com/scott-x/gutils/model"
 	"strings"
 )
+
+func GetContentBetween(reource string, A string, B string) string {
+	index_A := strings.Index(reource, A)
+	if index_A < 0 {
+		return ""
+	}
+	start_index := index_A + len(A)
+	//we must guranteen index_B > index_A
+	var reource_temp string
+	for k, v := range reource {
+		if k < index_A {
+			v = 42
+			// fmt.Println(string(v))
+		}
+		reource_temp += string(v)
+
+	}
+	index_B := strings.Index(reource_temp, B)
+	return reource[start_index:index_B]
+}
+
+func IsLastItem(arr []string, index int) bool {
+	return index == len(arr)-1
+}
 
 func FirstLetterToUpper(str string, mod int) string {
 	w := ""

@@ -31,14 +31,17 @@
 
 ```golang
 //if Line, Keywords or Replace not given, do nothing
+//insert structure
 type Insert struct {
-	File     string //must be specified
-	NewLine  string //must be specified
-	Line     int   //optional
-	Keywords string //opional
-	Replace //optional
+	File     string
+	Content  string //new included content
+	Postion  int    //before or after
+	Line     int    //which line
+	Keywords string //locate the line as per keywords that be given
+	Replace         // optional, if you want to exec replace operation, add it on
 }
 
+//replace
 type Replace struct {
 	Old string
 	New string
@@ -51,27 +54,26 @@ type Replace struct {
 package main
 
 import (
+	_ "fmt"
 	"github.com/scott-x/gutils/fs"
 	"github.com/scott-x/gutils/model"
 )
 
 func main() {
-	i := &model.Insert{
+	insert := &model.Insert{
 		File: "app.js",
-		NewLine: `
-import { Hello } from "hello";
-func add (a int,b int) int {
+		Content: `import { Hello } from "hello";
+
+function add (a, b) {
 	return a+b
 }
-		`,
-		Line:     1,
-		Keywords: "Component",
-		Replace: model.Replace{
-			Old: "Component",
-			New: "Scott",
-		},
+`,
+		Postion: model.POSITION_BEFORE,
+		// Line
+		Keywords: "ReactDOM.render",
+		// Replace        :
 	}
-	fs.InsertBefore(i)
-}
 
+	fs.Insert(insert)
+}
 ```

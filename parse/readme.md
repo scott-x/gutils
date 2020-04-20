@@ -2,7 +2,7 @@
 
 ### API
 - `func GetTables(sqlFileName string) *model.Tables`: parse sql file
-- `func MKD("## hello world\n - apple\n - pear \n - orange")`: parse markdown text to html
+- `func MKD(mkdtext string) string`: parse markdown text to html
 
 ### parse sql
 

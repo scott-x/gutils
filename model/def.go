@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-09-05 21:47:47
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2020-04-15 16:13:55
+* @Last Modified time: 2020-04-28 16:43:07
  */
 package model
 
@@ -11,6 +11,14 @@ const (
 	POSITION_BEFORE = iota //above
 	POSITION_AFTER         //below
 )
+
+// aliyun oss
+type OSS struct {
+	Endpoint        string
+	AccessKeyId     string
+	AccessKeySecret string
+	Bucket          string
+}
 
 //database configuration
 type DBConfig struct {

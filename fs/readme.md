@@ -114,8 +114,8 @@ import (
 
 func main() {
 	folders := []string{
-		"/Users/apple/Desktop/C2002H1_PMG/AI_ThisFolderToPrinter",
-		"/Users/apple/Desktop/C2002H1_PMG/PDF_Locked_For_Visual_Ref",
+		"/Volumes/datavolumn_bmkserver_Pub/202005/0506/C2002H1_PMG/AI_ThisFolderToPrinter",
+		"/Volumes/datavolumn_bmkserver_Pub/202005/0506/C2002H1_PMG/PDF_Locked_For_Visual_Ref",
 	}
 
 	ignore := []string{".git"}
@@ -124,10 +124,9 @@ func main() {
 		folders,
 		ignore,
 		"/Users/apple/Desktop/C2002H1_PMG.zip",
-		"/Users/apple/Desktop/C2002H1_PMG",
+		"/Volumes/datavolumn_bmkserver_Pub/202005/0506/C2002H1_PMG",
 	}
 
 	fs.ZipWithBar(z)
 }
-
 ```

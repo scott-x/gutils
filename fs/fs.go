@@ -13,6 +13,8 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 func List(folder string) []string {
@@ -26,6 +28,34 @@ func List(folder string) []string {
 		f = append(f, file.Name())
 	}
 	return f
+}
+
+func ListAll(folder string, ignore []string) ([]string, error) {
+	f := make([]string, 0)
+	err := filepath.Walk(folder,
+		func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			n := FileType(path)
+			if n == 1 {
+				//file
+				if len(ignore) > 0 {
+					for _, v := range ignore {
+						if !strings.Contains(path, v) {
+							f = append(f, path)
+						}
+					}
+				}
+
+			}
+			// fmt.Println(path, info.Size())
+			return nil
+		})
+	if err != nil {
+		log.Println(err)
+	}
+	return f, nil
 }
 
 func ListFolder(folder string) []string {

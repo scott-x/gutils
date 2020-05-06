@@ -27,9 +27,15 @@
 - `func ListFiles(folder string) []string`:just list the files in current folder
 - `func ListFolder(folder string) []string`:only list folder in current folder
 - `func ListAll(folder string, ignore []string) ([]string, error)`: list all, but will ignore the matched substring in the full path.
-- `func ListAll1(folder string, ignore []string) (*FS, int64, error)`:
+- `func ListAll1(folders []string, ignore []string) (*FS, int64, error)`:
 - `func Zip(zipName string, Base string, files []string) `: zip a file, `Base` will be removed.
+- `func ZipWithBar(z *ZIP) `: zip with progress bar
 - `func Tab(n int) string`: tabale n
+
+### Attribute
+
+- `fs.HOME`
+- `fs.DESKTOP`
 
 ### import struct
 
@@ -57,6 +63,14 @@ type F struct {
 }
 
 type FS []F
+
+//zip info
+type ZIP struct {
+	Folders []string
+	Ignore  []string
+	Where   string
+	Base    string // will be truncated from the full path
+}
 ```
 
 ### example
@@ -87,4 +101,33 @@ function add (a, b) {
 
 	fs.Insert(insert)
 }
+```
+
+### zip
+
+```golang
+package main
+
+import (
+	"github.com/scott-x/gutils/fs"
+)
+
+func main() {
+	folders := []string{
+		"/Users/apple/Desktop/C2002H1_PMG/AI_ThisFolderToPrinter",
+		"/Users/apple/Desktop/C2002H1_PMG/PDF_Locked_For_Visual_Ref",
+	}
+
+	ignore := []string{".git"}
+
+	z := &fs.ZIP{
+		folders,
+		ignore,
+		"/Users/apple/Desktop/C2002H1_PMG.zip",
+		"/Users/apple/Desktop/C2002H1_PMG",
+	}
+
+	fs.ZipWithBar(z)
+}
+
 ```

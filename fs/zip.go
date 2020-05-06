@@ -3,11 +3,21 @@ package fs
 import (
 	"archive/zip"
 	"fmt"
+	"github.com/cheggaaa/pb/v3"
 	"io"
 	"log"
 	"os"
 	"strings"
+	"time"
 )
+
+//zip info
+type ZIP struct {
+	Folders []string
+	Ignore  []string
+	Where   string
+	Base    string
+}
 
 //Base: /Users/scottxiong/Desktop/ then /Users/scottxiong/Desktop/img/1.jpg  => img/1.jpg
 func appendFiles(filename string, zipw *zip.Writer, Base string) error {
@@ -49,12 +59,7 @@ func Zip(zipName string, Base string, files []string) {
 	}
 }
 
-func (f *F) Read(b []byte) (int, error) {
-
-	return f.Size, nil
-}
-
-func ZipNotify(zipName string, Base string, files []string, chan_zip chan int) {
+func zip_with_bar(zipName string, Base string, _fs *FS, bar *pb.ProgressBar) {
 	flags := os.O_WRONLY | os.O_CREATE | os.O_TRUNC
 	file, err := os.OpenFile(zipName, flags, 0644)
 	if err != nil {
@@ -63,10 +68,23 @@ func ZipNotify(zipName string, Base string, files []string, chan_zip chan int) {
 	defer file.Close()
 	zipw := zip.NewWriter(file)
 	defer zipw.Close()
-	for _, filename := range files {
-		if err := appendFiles(filename, zipw, Base); err != nil {
-			log.Fatalf("Failed to add file %s to zip: %s", filename, err)
+	for _, v := range *_fs {
+		for i := 0; i < int(v.Size); i++ {
+			bar.Increment()
 		}
-		chan_zip <- 1
+		time.Sleep(200 * time.Microsecond)
+		if err := appendFiles(v.Path, zipw, Base); err != nil {
+			log.Fatalf("Failed to add file %s to zip: %s", v.Path, err)
+		}
 	}
+}
+
+func ZipWithBar(z *ZIP) {
+	_fs, count, _ := ListAll1(z.Folders, z.Ignore)
+	// create and start new bar
+	myTemplate := `{{ red "当前进度:" }} {{ bar . "[" "=" (cycle . ">" ) "." "]"}} {{percent .}} {{string . "my_green_string" | green}} {{string . "my_blue_string" | blue}}`
+	bar := pb.StartNew(int(count))
+	bar.SetTemplateString(myTemplate)
+	zip_with_bar(z.Where, z.Base, _fs, bar)
+	bar.Finish()
 }

@@ -58,6 +58,50 @@ func ListAll(folder string, ignore []string) ([]string, error) {
 	return f, nil
 }
 
+type F struct {
+	Path string
+	Size int64
+}
+
+type FS []F
+
+func ListAll1(folder string, ignore []string) (*FS, int64, error) {
+	var sum int64 = 0
+	_fs := &FS{}
+	err := filepath.Walk(folder,
+		func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			n := FileType(path)
+			if n == 1 {
+				//file
+				if len(ignore) > 0 {
+					for _, v := range ignore {
+						if !strings.Contains(path, v) {
+							_f := &F{}
+							_f.Path = path
+							_f.Size = info.Size()
+							sum += info.Size()
+							*_fs = append(*_fs, *_f)
+						}
+					}
+				} else {
+					_f := &F{}
+					_f.Path = path
+					_f.Size = info.Size()
+
+					*_fs = append(*_fs, *_f)
+				}
+			}
+			return nil
+		})
+	if err != nil {
+		log.Println(err)
+	}
+	return _fs, sum, nil
+}
+
 func ListFolder(folder string) []string {
 	f := make([]string, 0)
 	files, err := ioutil.ReadDir(folder)

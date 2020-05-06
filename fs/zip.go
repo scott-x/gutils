@@ -1,4 +1,4 @@
-package main
+package fs
 
 import (
 	"archive/zip"
@@ -46,5 +46,27 @@ func Zip(zipName string, Base string, files []string) {
 		if err := appendFiles(filename, zipw, Base); err != nil {
 			log.Fatalf("Failed to add file %s to zip: %s", filename, err)
 		}
+	}
+}
+
+func (f *F) Read(b []byte) (int, error) {
+
+	return f.Size, nil
+}
+
+func ZipNotify(zipName string, Base string, files []string, chan_zip chan int) {
+	flags := os.O_WRONLY | os.O_CREATE | os.O_TRUNC
+	file, err := os.OpenFile(zipName, flags, 0644)
+	if err != nil {
+		log.Fatalf("Failed to open zip for writing: %s", err)
+	}
+	defer file.Close()
+	zipw := zip.NewWriter(file)
+	defer zipw.Close()
+	for _, filename := range files {
+		if err := appendFiles(filename, zipw, Base); err != nil {
+			log.Fatalf("Failed to add file %s to zip: %s", filename, err)
+		}
+		chan_zip <- 1
 	}
 }

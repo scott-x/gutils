@@ -27,6 +27,7 @@
 - `func ListFiles(folder string) []string`:just list the files in current folder
 - `func ListFolder(folder string) []string`:only list folder in current folder
 - `func ListAll(folder string, ignore []string) ([]string, error)`: list all, but will ignore the matched substring in the full path.
+- `func ListAll1(folder string, ignore []string) (*FS, int64, error)`:
 - `func Zip(zipName string, Base string, files []string) `: zip a file, `Base` will be removed.
 - `func Tab(n int) string`: tabale n
 
@@ -49,6 +50,13 @@ type Replace struct {
 	Old string
 	New string
 }
+
+type F struct {
+	Path string
+	Size int64
+}
+
+type FS []F
 ```
 
 ### example

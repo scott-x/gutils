@@ -30,6 +30,7 @@
 - `func ListAll1(folders []string, ignore []string) (*FS, int64, error)`:
 - `func Zip(zipName string, Base string, files []string) `: zip a file, `Base` will be removed.
 - `func ZipWithBar(z *ZIP) `: zip with progress bar
+- `func GetFileSize(filename string) string`: get file size with 2 decimals
 - `func Tab(n int) string`: tabale n
 
 ### Attribute
@@ -128,5 +129,20 @@ func main() {
 	}
 
 	fs.ZipWithBar(z)
+}
+```
+### file size
+
+```golang
+package main
+
+import (
+	"fmt"
+	"github.com/scott-x/gutils/fs"
+)
+
+func main() {
+	size := fs.GetFileSize(fs.DESKTOP + "/js.zip")
+	fmt.Println(size)
 }
 ```

@@ -76,6 +76,7 @@ func ListAll1(folders []string, ignore []string) (*FS, int64, error) {
 				if err != nil {
 					return err
 				}
+				sum += info.Size()
 				n := FileType(path)
 				if n == 1 {
 					//file
@@ -85,7 +86,6 @@ func ListAll1(folders []string, ignore []string) (*FS, int64, error) {
 								_f := &F{}
 								_f.Path = path
 								_f.Size = info.Size()
-								sum += info.Size()
 								*_fs = append(*_fs, *_f)
 							}
 						}
@@ -96,6 +96,8 @@ func ListAll1(folders []string, ignore []string) (*FS, int64, error) {
 
 						*_fs = append(*_fs, *_f)
 					}
+				} else {
+
 				}
 				return nil
 			})

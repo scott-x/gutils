@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-07-25 17:14:40
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2020-04-14 17:48:51
+* @Last Modified time: 2020-05-08 07:13:30
  */
 package fs
 
@@ -23,13 +23,13 @@ func ReadFile1(file string) (string, error) {
 	return string(content), nil
 }
 
-func ReadAndReplace(file string, replace map[string]string) error {
+func ReadAndReplace(file string, replace map[string]interface{}) error {
 	content, err := ReadFile1(file)
 	if err != nil {
 		return err
 	}
 	for k, v := range replace {
-		content = strings.ReplaceAll(string(content), k, v)
+		content = strings.ReplaceAll(string(content), k, fmt.Sprintf("%f", v))
 	}
 	WriteString(file, content)
 	return nil

@@ -13,6 +13,7 @@ require (
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/otiai10/copy v1.0.1
 	github.com/schollz/progressbar/v3 v3.3.3
+	github.com/spf13/viper v1.6.3
 	github.com/tealeg/xlsx v1.0.5
 	golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
 	golang.org/x/sys v0.0.0-20200501145240-bc7a7d42d5c3 // indirect

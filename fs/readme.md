@@ -30,8 +30,8 @@
 - `func ListAll1(folders []string, ignore []string) (*FS, int64, error)`:
 - `func Zip(zipName string, Base string, files []string) `: zip a file, `Base` will be removed.
 - `func ZipWithBar(z *ZIP) `: zip with progress bar
-- `func GetFileSize(filename string) string`: get file size with 2 decimals
 - `func Tab(n int) string`: tabale n
+- `func ReadJson(filename string) func(string) interface{}`: read the configuration of json, return a method, with which we can get the related value.
 
 ### Attribute
 
@@ -131,7 +131,23 @@ func main() {
 	fs.ZipWithBar(z)
 }
 ```
-### file size
+
+### read configration
+
+** 1. json **
+
+config.json
+
+```json
+{
+  "date": "2019-04-30",
+  "mysql": {
+    "url": "127.0.0.1:3306",
+    "username": "root",
+    "password": "123456"
+  }
+}
+```
 
 ```golang
 package main
@@ -142,7 +158,9 @@ import (
 )
 
 func main() {
-	size := fs.GetFileSize(fs.DESKTOP + "/js.zip")
-	fmt.Println(size)
+	get := fs.ReadJson("config.json")
+	urlValue := get("mysql.url")
+	fmt.Println("mysql url:", urlValue)
+	fmt.Printf("mysql url: %s\nmysql username: %s\nmysql password: %s\n", get("mysql.url"), get("mysql.username"), get("mysql.password"))
 }
 ```

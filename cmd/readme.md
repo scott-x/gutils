@@ -42,6 +42,7 @@
 - `func AskQuestion(tip string) string `
 - `func Info(str string)`: print info
 - `func Warning(str string)`: print warning info
+- `func Trim(value string) string`: trim space of the value received from terminal
 
 ```golang
 package main

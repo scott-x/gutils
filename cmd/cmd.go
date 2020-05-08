@@ -143,3 +143,7 @@ func Exec() map[string]string {
 	}
 	return answers
 }
+
+func Trim(value string) string {
+	return strings.TrimSpace(value)
+}

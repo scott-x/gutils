@@ -13,7 +13,7 @@
 - `func CreateDirIfNotExist(dir string)`: similar like `mkdir -p /a/b/c`
 - `func CopyFolder(src, des string) error`:copy folder, for example: `CopyFolder("/Users/apple/go/src/github.com/scott-x/gutils", "/Users/apple/desktop/a")` :copy all files from gutils to folder `a`, not include folder `gutils`
 - `func IsExist(file string) bool`: check file or folder if exists
-- `func ReadAndReplace(file string, replace map[string]interface{}) error`: read file and replace it's content with `map[string]string{"old1":"new1","old2":"new2"}`
+- `func ReadAndReplace(file string, replace map[string]string) error`: read file and replace it's content with `map[string]string{"old1":"new1","old2":"new2"}`
 - `func ReadFile1(file string) (string, error)`: read the file and get the string content
 - `func GetRunningFolder() string `: get running folder, same as linux's command `pwd`
 - `func GetEnv(env string) string`:get the environment of the system
@@ -32,6 +32,8 @@
 - `func ZipWithBar(z *ZIP) `: zip with progress bar
 - `func Tab(n int) string`: tabale n
 - `func ReadJson(filename string) func(string) interface{}`: read the configuration of json, return a method, with which we can get the related value.
+- `func ModifyAttrOfJson_STRING(filename string, key string, value string)`: modify the string value
+- `func ModifyAttrOfJson_FLOAT64(filename string, key string, value float64)`: modify the data of float64
 
 ### Attribute
 
@@ -145,7 +147,8 @@ config.json
     "url": "127.0.0.1:3306",
     "username": "root",
     "password": "123456"
-  }
+  },
+  "port" : 8888
 }
 ```
 
@@ -159,7 +162,8 @@ import (
 
 func main() {
 	get := fs.ReadJson("config.json")
-	urlValue := get("mysql.url")
+	urlValue := get("mysql.url").(string)
+	port := get("port").(float64)
 	fmt.Println("mysql url:", urlValue)
 	fmt.Printf("mysql url: %s\nmysql username: %s\nmysql password: %s\n", get("mysql.url"), get("mysql.username"), get("mysql.password"))
 }

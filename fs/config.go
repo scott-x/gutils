@@ -14,6 +14,10 @@ import (
 	"path"
 )
 
+/*
+   1. read and modify the json data
+*/
+
 //read the configuration of json, return a method, with which we can get the related value
 func ReadJson(filename string) func(string) interface{} {
 	dir := path.Dir(filename)
@@ -34,16 +38,34 @@ func ReadJson(filename string) func(string) interface{} {
 	return viper.Get
 }
 
-func ModifyAttrOfJson(filename string, key string, value interface{}) {
+//modify string value
+func ModifyAttrOfJson_STRING(filename string, key string, value string) {
 	v := ReadJson(filename)(key)
 	if v == nil {
 		log.Printf("%s doesn't exist", key)
 		return
 	}
 	old := ReadJson(filename)(key).(string)
-	m := make(map[string]interface{}, 0)
+	m := make(map[string]string, 0)
 	// m[old] = fmt.Sprintf("%f", value)
 	m[old] = value
+	err := ReadAndReplace(filename, m)
+	if err != nil {
+		panic(err)
+	}
+}
+
+// modify int value
+func ModifyAttrOfJson_FLOAT64(filename string, key string, value float64) {
+	v := ReadJson(filename)(key)
+	if v == nil {
+		log.Printf("%s doesn't exist", key)
+		return
+	}
+	old := ReadJson(filename)(key).(float64)
+	m := make(map[string]string, 0)
+	// m[old] = fmt.Sprintf("%f", value)
+	m[float64_to_string(old)] = float64_to_string(value)
 	err := ReadAndReplace(filename, m)
 	if err != nil {
 		panic(err)

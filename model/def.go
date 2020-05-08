@@ -10,6 +10,7 @@ package model
 const (
 	POSITION_BEFORE = iota //above
 	POSITION_AFTER         //below
+	POSITION_CURRENT_LINE  //current line will be replaced
 )
 
 // aliyun oss

@@ -35,6 +35,10 @@ func Decimal(value float64) float64 {
 }
 
 //https://yourbasic.org/golang/convert-string-to-float/
-func float64_to_string(f float64) string {
-	return fmt.Sprintf("%.2f", f)
+func float64_to_string(value float64) string {
+	return fmt.Sprintf("%.0f", value)
+}
+
+func float64_to_string_2(value float64) string {
+	return fmt.Sprintf("%.2f", value)
 }

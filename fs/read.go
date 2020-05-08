@@ -23,13 +23,13 @@ func ReadFile1(file string) (string, error) {
 	return string(content), nil
 }
 
-func ReadAndReplace(file string, replace map[string]interface{}) error {
+func ReadAndReplace(file string, replace map[string]string) error {
 	content, err := ReadFile1(file)
 	if err != nil {
 		return err
 	}
 	for k, v := range replace {
-		content = strings.ReplaceAll(string(content), k, fmt.Sprintf("%f", v))
+		content = strings.ReplaceAll(string(content), k, v)
 	}
 	WriteString(file, content)
 	return nil
@@ -97,37 +97,3 @@ func CopyAndReplace(inputFile, outputFile string, replace map[string]string) {
 		panic(err.Error())
 	}
 }
-
-/*
-在很多情况下，文件的内容是不按行划分的，或者干脆就是一个二进制文件。
-在这种情况下，ReadString()就无法使用了，我们可以使用 bufio.Reader 的 Read()，它只接收一个参数：
-buf := make([]byte, 1024)
-...
-n, err := inputReader.Read(buf)
-if (n == 0) { break}
-*/
-// func ReadBuf(file string, size int) []byte {
-// 	buf := make([]byte, size)
-// 	inputFile, inputError := os.Open(file)
-// 	if inputError != nil {
-// 		fmt.Println("Error:", inputError)
-// 		return []byte("")
-// 	}
-// 	//程序退出时关闭文件（释放资源）
-// 	defer inputFile.Close()
-
-// 	inputReader := bufio.NewReader(inputFile)
-// 	var data []byte
-// 	for {
-// 		n, err := inputReader.Read(buf)
-// 		data = append(data, buf)
-// 		if n == 0 {
-// 			break
-// 		}
-// 		if err != nil {
-// 			fmt.Println(err.Error())
-// 		}
-// 	}
-
-// 	return data
-// }

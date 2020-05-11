@@ -2,12 +2,13 @@
 * @Author: scottxiong
 * @Date:   2019-07-25 16:10:54
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2020-05-08 06:28:17
+* @Last Modified time: 2020-05-12 04:57:00
 ref https://stackoverflow.com/questions/8824571/golang-determining-whether-file-points-to-file-or-directory
 */
 package fs
 
 import (
+	"archive/zip"
 	"github.com/otiai10/copy"
 	"io"
 	"io/ioutil"
@@ -23,6 +24,14 @@ type F struct {
 }
 
 type FS []F
+
+type INFO struct {
+	Path   string //file path
+	Size   int64
+	Header *zip.FileHeader
+}
+
+type INFOS []INFO
 
 func List(folder string) []string {
 	f := make([]string, 0)
@@ -65,10 +74,10 @@ func ListAll(folder string, ignore []string) ([]string, error) {
 	return f, nil
 }
 
-func ListAll1(folders []string, ignore []string) (*FS, int64, error) {
-	var sum int64 = 0
+func ListAllWithFileHeaders(folders []string) (*INFOS, int64, error) {
 	var err error
-	_fs := &FS{}
+	var sum int64
+	infos := &INFOS{}
 
 	for _, folder := range folders {
 		err = filepath.Walk(folder,
@@ -77,36 +86,31 @@ func ListAll1(folders []string, ignore []string) (*FS, int64, error) {
 					return err
 				}
 				n := FileType(path)
+
 				if n == 1 {
 					//file
-					if len(ignore) > 0 {
-						for _, v := range ignore {
-							if !strings.Contains(path, v) {
-								sum += info.Size()
-								_f := &F{}
-								_f.Path = path
-								_f.Size = info.Size()
-								*_fs = append(*_fs, *_f)
-							}
-						}
-					} else {
-						_f := &F{}
-						_f.Path = path
-						_f.Size = info.Size()
-
-						*_fs = append(*_fs, *_f)
+					sum += info.Size()
+					i := &INFO{}
+					header, err := zip.FileInfoHeader(info)
+					if err != nil {
+						return err
 					}
+					i.Header = header
+					i.Path = path
+					i.Size = info.Size()
+					*infos = append(*infos, *i)
+
 				} else {
 
 				}
+
 				return nil
 			})
 		if err != nil {
 			log.Println(err)
 		}
 	}
-
-	return _fs, sum, nil
+	return infos, sum, nil
 }
 
 func ListFolder(folder string) []string {

@@ -27,7 +27,7 @@
 - `func ListFiles(folder string) []string`:just list the files in current folder
 - `func ListFolder(folder string) []string`:only list folder in current folder
 - `func ListAll(folder string, ignore []string) ([]string, error)`: list all, but will ignore the matched substring in the full path.
-- `func ListAll1(folders []string, ignore []string) (*FS, int64, error)`:
+- `func ListAllWithFileHeaders(folders []string) (*INFOS, int64, error)`:
 - `func Zip(zipName string, Base string, files []string) `: zip a file, `Base` will be removed.
 - `func ZipWithBar(z *ZIP) `: zip with progress bar
 - `func Tab(n int) string`: tabale n
@@ -70,10 +70,17 @@ type FS []F
 //zip info
 type ZIP struct {
 	Folders []string
-	Ignore  []string
 	Where   string
 	Base    string // will be truncated from the full path
 }
+
+type INFO struct {
+	Path   string //file path
+	Size   int64
+	Header *zip.FileHeader
+}
+
+type INFOS []INFO
 ```
 
 ### example
@@ -117,20 +124,16 @@ import (
 
 func main() {
 	folders := []string{
-		"/Volumes/datavolumn_bmkserver_Pub/202005/0506/C2002H1_PMG/AI_ThisFolderToPrinter",
-		"/Volumes/datavolumn_bmkserver_Pub/202005/0506/C2002H1_PMG/PDF_Locked_For_Visual_Ref",
+		"/Users/apple/Desktop/C2004F4_FLW/AI_ThisFolderToPrinter",
+		"/Users/apple/Desktop/C2004F4_FLW/PDF_Locked_For_Visual_Ref",
+	}
+	zip := &fs.ZIP{
+		Folders: folders,
+		Where:   "/Users/apple/Desktop/C2004F4_FLW.zip",
+		Base:    "/Users/apple/Desktop/C2004F4_FLW",
 	}
 
-	ignore := []string{".git"}
-
-	z := &fs.ZIP{
-		folders,
-		ignore,
-		"/Users/apple/Desktop/C2002H1_PMG.zip",
-		"/Volumes/datavolumn_bmkserver_Pub/202005/0506/C2002H1_PMG",
-	}
-
-	fs.ZipWithBar(z)
+	fs.ZipWithBar(zip)
 }
 ```
 

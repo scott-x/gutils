@@ -14,7 +14,7 @@ import (
 )
 
 func Insert(insert *model.Insert) {
-	if insert.Postion != model.POSITION_BEFORE && insert.Postion != model.POSITION_AFTER && insert.Postion!=model.POSITION_CURRENT_LINE{
+	if insert.Postion != model.POSITION_BEFORE && insert.Postion != model.POSITION_AFTER && insert.Postion != model.POSITION_CURRENT_LINE {
 		fmt.Println(errors.New("Insert.Postion must be specified, model.POSTION_BEFORE or model.POSTION_AFTER or model.POSITION_CURRENT_LINE will be OK"))
 	}
 	new_arr := make([]string, 0)

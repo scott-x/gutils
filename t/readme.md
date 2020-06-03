@@ -7,7 +7,7 @@
 ### options of type_t
 
 ```
-type_t		result format
+type_t				result format
 -------------------------------------------------------
 "yyyy-mm-dd hh:mm:ss"	2006-01-02 15:04:05
 "yyyymmdd"           	"20060102"

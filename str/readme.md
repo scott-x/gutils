@@ -22,6 +22,7 @@ for more information, please [click here](http://www.asciitable.com/)
 - `func GetPositions(content string, first, last string) *model.Ps`;
 - `func IsLastItem(arr []string, index int) bool`: judge if it's the last item of the Array
 - `func GetContentBetween(reource string, A string, B string) string `: get the subcontent between A and B, if not match, return `""` 
+- `func MD5(str string) string`: get the md5 string(with fixed length), note that md5 algorithem is irreversible.
 
 ### rune
 ```

@@ -2,15 +2,20 @@
 * @Author: scottxiong
 * @Date:   2019-09-09 16:59:49
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2020-04-15 19:19:08
+* @Last Modified time: 2020-06-03 11:38:40
  */
 package str
 
 import (
+	"crypto/md5"
 	"fmt"
 	"github.com/scott-x/gutils/model"
 	"strings"
 )
+
+func MD5(str string) string {
+	return fmt.Sprintf("%x", md5.Sum([]byte(str)))
+}
 
 func GetContentBetween(reource string, A string, B string) string {
 	index_A := strings.Index(reource, A)

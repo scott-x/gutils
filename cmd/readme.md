@@ -1,40 +1,20 @@
 ## useage
 
+## color option
+
+```
+number              color
+------------------------------------
+1                   red
+2                   blue
+3                   magenta
+4                   yellow
+5                   white
+6                   cyan
+7                   green
+```
+
 ## API
-<table style="margin-left: 35px;">
-    <tr>
-        <td>number</td>
-        <td>color</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>red</td>
-    <tr>
-    <tr>
-        <td>2</td>
-        <td>blue</td>
-    <tr>
-    <tr>
-        <td>3</td>
-        <td>magenta</td>
-    <tr>
-    <tr>
-        <td>4</td>
-        <td>yellow</td>
-    <tr>
-    <tr>
-        <td>5</td>
-        <td>white</td>
-    <tr>
-    <tr>
-        <td>6</td>
-        <td>cyan</td>
-    <tr>
-    <tr>
-        <td>7</td>
-        <td>green</td>
-    <tr>
-</table>
 
 - `func AddTask(tip string, color int, tasks ...string) string`: print the tasks and return the option you selected. If you pass `""` to tip, it will use build-in tip, otherwise it will use customed tip; color is a int number, which ranges from 1-7, default 6.
 - `func AddQuestion(name, tip, retip, re string) *model.Questions`

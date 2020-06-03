@@ -2,15 +2,17 @@
 When dealing with string, we'd better convert it to ASCII 1st，for some characters can't be seen，such as `\n`
 
 ### Common ASCII
-- space 32
-- enter 10
-- tab 9
-- `*` 42
-- 0 48
-- A 65
-- a 97
 
-more information, [click here](http://www.asciitable.com/)
+```
+space			32
+enter			10
+tab				9
+*				42
+0				48
+A				65
+a 				97
+```
+for more information, please [click here](http://www.asciitable.com/)
 
 ### API
 - `func FirstLetterToUpper(str string, mod int) string`: mod can be set 1(for single world) or -1(for all words)

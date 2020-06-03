@@ -34,6 +34,7 @@
 - `func ReadJson(filename string) func(string) interface{}`: read the configuration of json, return a method, with which we can get the related value.
 - `func ModifyAttrOfJson_STRING(filename string, key string, value string)`: modify the string value
 - `func ModifyAttrOfJson_FLOAT64(filename string, key string, value float64)`: modify the data of float64
+- `func MD5(file string) string`: md5 file checksum
 
 ### Attribute
 

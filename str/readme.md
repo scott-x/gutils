@@ -6,11 +6,11 @@ When dealing with string, we'd better convert it to ASCII 1st，for some charact
 ```
 space			32
 enter			10
-tab				9
-*				42
-0				48
-A				65
-a 				97
+tab			9
+*			42
+0			48
+A			65
+a 			97
 ```
 for more information, please [click here](http://www.asciitable.com/)
 

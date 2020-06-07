@@ -15,3 +15,10 @@ func New() string {
 	io.WriteString(h, strconv.FormatInt(curtime, 10))
 	return fmt.Sprintf("%x", h.Sum(nil))
 }
+
+//generate token with salt
+func NewWithSalt(salt string) string {
+	h := md5.New()
+	io.WriteString(h, salt+time.Now().String())
+	return fmt.Sprintf("%x", h.Sum(nil))
+}

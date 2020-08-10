@@ -1,9 +1,10 @@
 # package db
 
 ### API
-- `func GetConnection(config *model.DBConfig) (*sql.DB, error) `: get a database connection
+- `func GetConnection(file string) (*sql.DB, error)`: get a database connection, if `err!=nil`, `*sql.DB` is nil, which means the connection can't be used.
 
 ### model
+
 ```golang
 type DBConfig struct {
 	Driver   string
@@ -14,6 +15,19 @@ type DBConfig struct {
 	Database string
 }
 ``` 
+
+config.json
+
+```json
+{
+	"driver":"mysql",
+	"host":"127.0.0.1",
+	"username":"",
+	"password":"",
+	"port":"3306",
+	"database":"test"
+}
+```
 ### example
 ```golang
 package main
@@ -21,22 +35,20 @@ package main
 import (
 	"fmt"
 	"github.com/scott-x/gutils/db"
-	"github.com/scott-x/gutils/model"
+	"log"
 )
 
 func main() {
-	//config
-	config := &model.DBConfig{}
-	//get connection, we'd better set it as a global value if it was used constantly.
-	con, err := db.GetConnection(config)
+	dbCon, err := db.GetConnection("db/config.json")
 	if err != nil {
+		log.Printf("DB error: %s\n", err)
 		return
 	}
 	//define sql
-	sql := "select username from user"
+	_sql := "select username from user"
 
 	//prepare
-	stmt, err := con.Prepare(sql)
+	stmt, err := dbCon.Prepare(_sql)
 	if err != nil {
 		panic(err)
 	}

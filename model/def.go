@@ -2,15 +2,15 @@
 * @Author: scottxiong
 * @Date:   2019-09-05 21:47:47
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2020-04-28 16:43:07
+* @Last Modified time: 2020-08-10 16:02:43
  */
 package model
 
 // the postion that the copy will be inserted
 const (
-	POSITION_BEFORE = iota //above
-	POSITION_AFTER         //below
-	POSITION_CURRENT_LINE  //current line will be replaced
+	POSITION_BEFORE       = iota //above
+	POSITION_AFTER               //below
+	POSITION_CURRENT_LINE        //current line will be replaced
 )
 
 // aliyun oss
@@ -29,7 +29,6 @@ type DBConfig struct {
 	Host     string
 	Port     string
 	Database string
-	PoolSize int
 }
 
 //question

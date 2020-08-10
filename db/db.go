@@ -2,24 +2,38 @@
 * @Author: scottxiong
 * @Date:   2020-04-07 15:46:54
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2020-04-07 16:29:31
+* @Last Modified time: 2020-08-10 15:35:44
  */
 package db
 
 import (
 	"database/sql"
+	"encoding/json"
+	"errors"
 	"github.com/scott-x/gutils/model"
+	"io/ioutil"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func GetConnection(config *model.DBConfig) (*sql.DB, error) {
-	driver := config.Driver
-	username := config.Username
-	password := config.Password
-	host := config.Host
-	port := config.Port
-	database := config.Database
+var (
+	ParseErr = errors.New("parse config file error")
+	DbError  = errors.New("default database can't be null")
+)
+
+func GetConnection(file string) (*sql.DB, error) {
+	bs, err := ioutil.ReadFile(file)
+	if err != nil {
+		return nil, err
+	}
+
+	config := &model.DBConfig{}
+	err = json.Unmarshal(bs, config)
+	if err != nil {
+		return nil, ParseErr
+	}
+
+	driver, username, password, host, port, database := config.Driver, config.Username, config.Password, config.Host, config.Port, config.Database
 
 	if driver == "" {
 		driver = "mysql"
@@ -42,8 +56,8 @@ func GetConnection(config *model.DBConfig) (*sql.DB, error) {
 	}
 
 	if database == "" {
-		database = "test"
+		return nil, DbError
 	}
-
-	return sql.Open(driver, username+":"+password+"@tcp("+host+":"+port+")/"+database+"?charset=utf8")
+	dataSource := username + ":" + password + "@tcp(" + host + ":" + port + ")/" + database + "?charset=utf8"
+	return sql.Open(driver, dataSource)
 }

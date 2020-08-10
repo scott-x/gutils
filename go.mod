@@ -1,4 +1,4 @@
-module github.com/scott-x/gutils
+module github.com/scott-x/gutils/v2
 
 go 1.12
 

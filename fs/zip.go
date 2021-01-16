@@ -63,18 +63,21 @@ func appendFilesIncludingHeader(filename string, zipw *zip.Writer, Base string, 
 		return fmt.Errorf(msg, filename, err)
 	}
 
+	n := FileType(_filename)
+	//if folder
+	if n != 1 {
+		return nil
+	}
+	// fmt.Println(_filename)
+	//if file
 	file, err := os.Open(_filename)
 	if err != nil {
 		return fmt.Errorf("Failed to open %s: %s", filename, err)
 	}
 	defer file.Close()
 
-	n := FileType(_filename)
-
-	if n == 1 {
-		if _, err := io.Copy(w, file); err != nil {
-			return fmt.Errorf("Failed to write %s to zip: %s", filename, err)
-		}
+	if _, err := io.Copy(w, file); err != nil {
+		return fmt.Errorf("Failed to write %s to zip: %s", filename, err)
 	}
 
 	return nil

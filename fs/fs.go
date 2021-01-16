@@ -2,7 +2,7 @@
 * @Author: scottxiong
 * @Date:   2019-07-25 16:10:54
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2021-01-16 11:54:31
+* @Last Modified time: 2021-01-16 15:10:17
 ref https://stackoverflow.com/questions/8824571/golang-determining-whether-file-points-to-file-or-directory
 */
 package fs
@@ -113,17 +113,17 @@ func ListAllWithFileHeaders(folders []string) (*INFOS, int64, error) {
 					*infos = append(*infos, *i)
 
 				} else {
-					//folder
-					sum += 0
-					i := &INFO{}
-					header, err := zip.FileInfoHeader(info)
-					if err != nil {
-						return err
-					}
-					i.Header = header
-					i.Path = path
-					i.Size = 0
-					*infos = append(*infos, *i)
+					// //folder
+					// // sum += 0
+					// i := &INFO{}
+					// header, err := zip.FileInfoHeader(info)
+					// if err != nil {
+					// 	return err
+					// }
+					// i.Header = header
+					// i.Path = path
+					// // i.Size = 0
+					// *infos = append(*infos, *i)
 				}
 
 				return nil

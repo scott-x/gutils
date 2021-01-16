@@ -44,6 +44,7 @@ func appendFiles(filename string, zipw *zip.Writer, Base string) error {
 }
 
 func appendFilesIncludingHeader(filename string, zipw *zip.Writer, Base string, header *zip.FileHeader) error {
+	_filename := filename
 	file_info, err := os.Stat(filename)
 	if err != nil {
 		return fmt.Errorf("Failed to open %s: %s", filename, err)
@@ -62,13 +63,18 @@ func appendFilesIncludingHeader(filename string, zipw *zip.Writer, Base string, 
 		return fmt.Errorf(msg, filename, err)
 	}
 
-	file, err := os.Open(filename)
+	file, err := os.Open(_filename)
 	if err != nil {
 		return fmt.Errorf("Failed to open %s: %s", filename, err)
 	}
 	defer file.Close()
-	if _, err := io.Copy(w, file); err != nil {
-		return fmt.Errorf("Failed to write %s to zip: %s", filename, err)
+
+	n := FileType(_filename)
+
+	if n == 1 {
+		if _, err := io.Copy(w, file); err != nil {
+			return fmt.Errorf("Failed to write %s to zip: %s", filename, err)
+		}
 	}
 
 	return nil
@@ -117,6 +123,7 @@ func ZipWithBar(z *ZIP) {
 	myTemplate := `{{ red "当前进度:" }} {{ bar . "[" "=" (cycle . ">" ) "." "]"}} {{percent .}} {{string . "my_green_string" | green}} {{string . "my_blue_string" | blue}}`
 	bar := pb.StartNew(int(count))
 	bar.SetTemplateString(myTemplate)
+
 	zip_with_bar(z.Where, z.Base, infos, bar)
 	bar.Finish()
 }

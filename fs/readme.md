@@ -120,21 +120,23 @@ function add (a, b) {
 package main
 
 import (
+	// "fmt"
 	"github.com/scott-x/gutils/fs"
 )
 
+var base = "/Volumes/datavolumn_bmkserver_Pub/202101/0116/C201292_LXS"
+
 func main() {
-	folders := []string{
-		"/Users/apple/Desktop/C2004F4_FLW/AI_ThisFolderToPrinter",
-		"/Users/apple/Desktop/C2004F4_FLW/PDF_Locked_For_Visual_Ref",
-	}
-	zip := &fs.ZIP{
-		Folders: folders,
-		Where:   "/Users/apple/Desktop/C2004F4_FLW.zip",
-		Base:    "/Users/apple/Desktop/C2004F4_FLW",
+	z := &fs.ZIP{
+		Folders: []string{
+			base + "/AI_ThisFolderToPrinter", //must be full path
+			base + "/PDF_Locked_For_Visual_Ref", //must be full path
+		},
+		Where: fs.DESKTOP + "/a.zip", //must be full path
+		Base:  base,
 	}
 
-	fs.ZipWithBar(zip)
+	fs.ZipWithBar(z)
 }
 ```
 

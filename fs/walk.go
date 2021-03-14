@@ -55,7 +55,9 @@ func (t *Task) Walk(c chan string, done chan bool) error {
 			if expect_file_type == FOLDER || expect_file_type == MIX {
 
 				if len(res) > 0 {
-					c <- pth
+					go func() {
+						c <- pth
+					}()
 					if t.Depth == 1 {
 						//should_ignore = append(should_ignore, pth)
 						return filepath.SkipDir
@@ -77,7 +79,9 @@ func (t *Task) Walk(c chan string, done chan bool) error {
 		} else { // if file
 			if expect_file_type == FILE || expect_file_type == MIX {
 				if len(res) > 0 {
-					c <- pth
+					go func() {
+						c <- pth
+					}()
 				}
 			}
 		}

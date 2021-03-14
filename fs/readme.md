@@ -35,6 +35,7 @@
 - `func ModifyAttrOfJson_STRING(filename string, key string, value string)`: modify the string value
 - `func ModifyAttrOfJson_FLOAT64(filename string, key string, value float64)`: modify the data of float64
 - `func MD5(file string) string`: md5 file checksum
+- `func GetExpectedPath(folder,re string) string`: it will loop the folder, and return the file/folder that **1st** matches re, will return "" if not match.
 
 ### Attribute
 
@@ -171,4 +172,195 @@ func main() {
 	fmt.Println("mysql url:", urlValue)
 	fmt.Printf("mysql url: %s\nmysql username: %s\nmysql password: %s\n", get("mysql.url"), get("mysql.username"), get("mysql.password"))
 }
+```
+
+### Walk
+
+- `func NewTasks(pths []string, e *Expect) *[]Task`
+- `func (t *Task) Walk(c chan string, done chan bool) error`
+
+```golang
+//exected file type
+const (
+	FILE = iota
+	FOLDER
+	MIX
+)
+
+type Task struct {
+	Dir string
+	*Expect
+}
+
+//constraint
+type Expect struct {
+	T             int // YOUR TARGET FILE TYPE, only FILE,FOLDER,MIX can be used here
+	Match         string //regexp string, used to filter the data
+	IgnoreFolders []string //ignore folders contains that defined the []string
+	Depth         int 
+	/* If your file type is folder, then you can set as 1, when found the target folder, 
+	it won't walk the target folder; if not set, will walk all folder*/
+}
+```
+
+**Example1: walk single folder**
+
+```golang
+package main
+
+
+import (
+	"github.com/scott-x/gutils/fs"
+	"fmt"
+	"time"
+)
+
+func main() {
+	c := make(chan string)
+	done := make(chan bool)
+	num,taskHaveDone := 0,0
+
+	pts := []string{
+		"/Users/scottxiong/go",
+		"/Users/scottxiong/Desktop",
+	}
+
+	e := &fs.Expect{
+		T:     fs.FILE,
+		Match: ".go$",
+		Depth: -1,
+		IgnoreFolders: []string{
+			"test",
+		},
+	}
+	len_pts := len(pts)
+	
+	t1 := time.Now()
+	tasks := fs.NewTasks(pts, e)
+	for _, f := range  *tasks{
+		_f := f
+		go _f.Walk(c, done)
+	}
+
+	for {
+		select {
+		case v := <-c:
+			num++
+			fmt.Println(v)
+		case <-done:
+			taskHaveDone++
+			if taskHaveDone == len_pts{
+				fmt.Println(num)
+				fmt.Println(time.Since(t1))
+				return
+			}
+		}
+	}
+}
+```
+
+**Example1: walk multiple folder**
+
+```golang
+func main() {
+	c := make(chan string)   //design chan
+	c1 := make(chan string)  //pub chan
+	xls := make(chan string) //xls
+	done := make(chan bool)
+	num, taskHaveDone := 0, 0
+
+	pts := []string{
+		"/Volumes/datavolumn_bmkserver_Design/Proofing",
+		"/Volumes/datavolumn_bmkserver_Design/WMT-Canada",
+		"/Volumes/datavolumn_bmkserver_Design/WMT-USA",
+	}
+
+	pts1 := []string{
+		"/Volumes/datavolumn_bmkserver_Pub/新做稿/未开始",
+		"/Volumes/datavolumn_bmkserver_Pub/新做稿/进行中",
+		"/Volumes/datavolumn_bmkserver_Pub/新做稿/已结束/WMT_Case",
+		"/Volumes/datavolumn_bmkserver_Pub/新做稿/已结束/NON-WMT",
+	}
+
+	pts2 := []string{
+		"/Volumes/datavolumn_bmkserver_Pub/新做稿/印刷",
+	}
+
+	total_len := len(pts) + len(pts1) + len(pts2)
+
+	e := &fs.Expect{
+		T:     FOLDER,
+		Match: "^[UCBP][2][01][01][0-9][A-Z0-9][0-9]_[A-Z]{3}$",
+		Depth: 1,
+		IgnoreFolders: []string{
+			"2019",
+			"2020",
+		},
+	}
+
+	e1 := &fs.Expect{
+		T:     FOLDER,
+		Match: "^[UCB][2][01][01][0-9][A-Z0-9][0-9]_[A-Z]{3} 做稿$",
+		Depth: 1,
+		IgnoreFolders: []string{
+			"2019",
+			"2020",
+		},
+	}
+
+	e2 := &fs.Expect{
+		T:     FOLDER,
+		Match: "^[P][2][01][01][0-9][A-Z0-9][0-9]_LNC$",
+		Depth: 1,
+		IgnoreFolders: []string{
+			"2018",
+			"2019",
+		},
+	}
+
+	t1 := time.Now()
+	tasks := fs.NewTasks(pts, e)
+	tasks1 := fs.NewTasks(pts1, e1)
+	tasks2 := fs.NewTasks(pts2, e2)
+
+	go func() {
+		for _, f := range *tasks {
+			_f := f
+			go _f.Walk(c, done)
+		}
+
+		for _, f1 := range *tasks1 {
+			_f1 := f1
+			go _f1.Walk(c1, done)
+		}
+
+		for _, f2 := range *tasks2 {
+			_f2 := f2
+			go _f2.Walk(c1, done)
+		}
+
+	}()
+
+	for {
+		select {
+		case v := <-c:
+			num++
+		case v := <-c1:
+			num++
+			go func() {
+				xls <- fs.GetExpectedPath(v,`^[UCBP]2.*\.xlsx?`)
+			}()
+		case data := <-xls:
+				//database operation
+		case <-done:
+			taskHaveDone++
+			if taskHaveDone == total_len{
+				fmt.Printf("updated %d 个 case\n", num)
+				fmt.Printf("It takes %v in total\n", time.Since(t1))
+				return
+			}
+		}
+	}
+}
+
 ```

@@ -44,22 +44,37 @@ func appendFiles(filename string, zipw *zip.Writer, Base string) error {
 }
 
 func appendFilesIncludingHeader(filename string, zipw *zip.Writer, Base string, header *zip.FileHeader) error {
-	file, err := os.Open(filename)
+	_filename := filename
+	file_info, err := os.Stat(filename)
 	if err != nil {
 		return fmt.Errorf("Failed to open %s: %s", filename, err)
 	}
-	defer file.Close()
 	// fmt.Println(filename)
 	if strings.Contains(filename, Base) {
 		filename = strings.TrimPrefix(filename, Base)
 	}
 	//update header name https://golang.org/pkg/archive/zip/#FileHeader
 	header.Name = filename
+	//fix bug after the file was ziped, the time is slower 8 hours than normal
+	header.SetModTime(file_info.ModTime())
 	w, err := zipw.CreateHeader(header)
 	if err != nil {
 		msg := "Failed to create entry for %s in zip file: %s"
 		return fmt.Errorf(msg, filename, err)
 	}
+
+	n := FileType(_filename)
+	//if folder
+	if n != 1 {
+		return nil
+	}
+	// fmt.Println(_filename)
+	//if file
+	file, err := os.Open(_filename)
+	if err != nil {
+		return fmt.Errorf("Failed to open %s: %s", filename, err)
+	}
+	defer file.Close()
 
 	if _, err := io.Copy(w, file); err != nil {
 		return fmt.Errorf("Failed to write %s to zip: %s", filename, err)
@@ -111,6 +126,7 @@ func ZipWithBar(z *ZIP) {
 	myTemplate := `{{ red "当前进度:" }} {{ bar . "[" "=" (cycle . ">" ) "." "]"}} {{percent .}} {{string . "my_green_string" | green}} {{string . "my_blue_string" | blue}}`
 	bar := pb.StartNew(int(count))
 	bar.SetTemplateString(myTemplate)
+
 	zip_with_bar(z.Where, z.Base, infos, bar)
 	bar.Finish()
 }

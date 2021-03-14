@@ -35,7 +35,11 @@
 - `func ModifyAttrOfJson_STRING(filename string, key string, value string)`: modify the string value
 - `func ModifyAttrOfJson_FLOAT64(filename string, key string, value float64)`: modify the data of float64
 - `func MD5(file string) string`: md5 file checksum
+<<<<<<< HEAD
 - `func GetExpectedPath(folder,re string) string`: it will loop the folder, and return the file/folder that **1st** matches re, will return "" if not match.
+=======
+- `func LastModify(pth string) string`: get the time stamp that the file was last modified(string format)
+>>>>>>> 4fdd90c0dcb2204ed5e4a861e5d029d020b330c6
 
 ### Attribute
 
@@ -121,21 +125,23 @@ function add (a, b) {
 package main
 
 import (
+	// "fmt"
 	"github.com/scott-x/gutils/fs"
 )
 
+var base = "/Volumes/datavolumn_bmkserver_Pub/202101/0116/C201292_LXS"
+
 func main() {
-	folders := []string{
-		"/Users/apple/Desktop/C2004F4_FLW/AI_ThisFolderToPrinter",
-		"/Users/apple/Desktop/C2004F4_FLW/PDF_Locked_For_Visual_Ref",
-	}
-	zip := &fs.ZIP{
-		Folders: folders,
-		Where:   "/Users/apple/Desktop/C2004F4_FLW.zip",
-		Base:    "/Users/apple/Desktop/C2004F4_FLW",
+	z := &fs.ZIP{
+		Folders: []string{
+			base + "/AI_ThisFolderToPrinter", //must be full path
+			base + "/PDF_Locked_For_Visual_Ref", //must be full path
+		},
+		Where: fs.DESKTOP + "/a.zip", //must be full path
+		Base:  base,
 	}
 
-	fs.ZipWithBar(zip)
+	fs.ZipWithBar(z)
 }
 ```
 

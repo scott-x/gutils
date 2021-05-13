@@ -13,8 +13,8 @@ import (
 
 //zip info
 type ZIP struct {
-	Folders []string
-	Where   string
+	Folders []string //完整的folder
+	Where   string 
 	Base    string
 }
 
@@ -52,9 +52,13 @@ func appendFilesIncludingHeader(filename string, zipw *zip.Writer, Base string, 
 	// fmt.Println(filename)
 	if strings.Contains(filename, Base) {
 		filename = strings.TrimPrefix(filename, Base)
+		if filename[0]=='/'{
+			filename=filename[1:]
+		}
 	}
 	//update header name https://golang.org/pkg/archive/zip/#FileHeader
 	header.Name = filename
+	// log.Println("filename:",filename)
 	//fix bug after the file was ziped, the time is slower 8 hours than normal
 	header.SetModTime(file_info.ModTime())
 	w, err := zipw.CreateHeader(header)

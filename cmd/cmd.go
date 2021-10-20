@@ -113,7 +113,7 @@ func AddTask(tip string, color_option int, tasks ...string) string {
 		panic(err)
 	}
 	option = strings.Trim(option, "\n")
-	re := `^[1-9]+$`
+	re := `^[1-9][0-9]*$`
 	res := regexp.MustCompile(re)
 	str := res.FindAllString(option, -1)
 

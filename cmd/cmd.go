@@ -2,7 +2,7 @@
 * @Author: sottxiong
 * @Date:   2019-07-07 16:28:34
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2022-01-12 21:34:53
+* @Last Modified time: 2022-01-12 21:42:40
  */
 package cmd
 
@@ -166,7 +166,7 @@ func SelectOne(desc, tip string, color_option int, t model.Tasker) int {
 	if tasks_length == 1 {
 		my_color.Printf("%s:\n", desc)
 	} else {
-		my_color.Printf("%s, please select number [1-%d]:", desc, tasks_length)
+		my_color.Printf("%s, please select number [1-%d]:\n", desc, tasks_length)
 	}
 
 	//use default tips

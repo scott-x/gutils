@@ -5,3 +5,4 @@ main.go
 *.json
 example
 *.sql
+cmd_test.go

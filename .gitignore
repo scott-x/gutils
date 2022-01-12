@@ -1,8 +1,6 @@
 .DS_Store
 test.go
-main.go
 *.zip
-*.json
 example
 *.sql
 cmd_test.go

@@ -23,7 +23,7 @@ number              color
 - `func Info(str string)`: print info
 - `func Warning(str string)`: print warning info
 - `func Trim(value string) string`: trim space of the value received from terminal
-- `func SelectOne(desc, tip string, color_option int, t model.Tasker) int`: select one item from slice, return the index of the slice, if invalid return -1
+- `func SelectOne(desc, tip string, color_option int, t model.Tasker) int`: select one item from slice, return the index of the slice, if invalid return -1, see [example](https://github.com/scott-x/gutils/tree/master/examples/cmd_SelectOne/main.go)
 
 ## interface
 

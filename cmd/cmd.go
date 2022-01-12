@@ -2,7 +2,7 @@
 * @Author: sottxiong
 * @Date:   2019-07-07 16:28:34
 * @Last Modified by:   scottxiong
-* @Last Modified time: 2022-01-12 20:43:34
+* @Last Modified time: 2022-01-12 21:34:53
  */
 package cmd
 
@@ -24,10 +24,6 @@ var (
 	all       = 0
 	cmded     = 0
 )
-
-type Tasker interface {
-	HandleItems() []string
-}
 
 func AddQuestion(name, tip, retip, re string) *model.Questions {
 	all++
@@ -141,7 +137,8 @@ func AddTask(tip string, color_option int, tasks ...string) string {
 }
 
 //return selected num, if invalid return -1
-func AddTask2(tip string, color_option int, t Tasker) int {
+//desc: description
+func SelectOne(desc, tip string, color_option int, t model.Tasker) int {
 	display := t.HandleItems()
 	tasks_length := len(display)
 	//color selection
@@ -164,6 +161,14 @@ func AddTask2(tip string, color_option int, t Tasker) int {
 	default:
 		my_color = cl.BoldCyan
 	}
+
+	//desc
+	if tasks_length == 1 {
+		my_color.Printf("%s:\n", desc)
+	} else {
+		my_color.Printf("%s, please select number [1-%d]:", desc, tasks_length)
+	}
+
 	//use default tips
 	if tip == "" {
 		if tasks_length == 1 {

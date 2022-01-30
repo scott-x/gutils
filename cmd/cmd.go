@@ -8,8 +8,10 @@ package cmd
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"regexp"
+	"runtime"
 	"strconv"
 	"strings"
 
@@ -23,7 +25,14 @@ var (
 	answers   = map[string]string{}
 	all       = 0
 	cmded     = 0
+	isWindows bool
 )
+
+func init() {
+	if runtime.GOOS == "windows" {
+		isWindows = true
+	}
+}
 
 func AddQuestion(name, tip, retip, re string) *model.Questions {
 	all++
@@ -39,15 +48,24 @@ func AskQuestion(tip string) string {
 }
 
 func ask_question(q string, color *color.Color) string {
-	inputReader := bufio.NewReader(os.Stdin)
+	var inputData string
+	var err error
+	if isWindows {
+		_, err = fmt.Scanf("%s", &inputData)
+		if err != nil {
+			return ""
+		}
+	} else {
+		inputReader := bufio.NewReader(os.Stdin)
 
-	color.Printf(q)
-	inputData, err := inputReader.ReadString('\n')
-	if err != nil {
-		panic(err)
+		color.Printf(q)
+		inputData, err = inputReader.ReadString('\n')
+		if err != nil {
+			panic(err)
+		}
+		inputData = strings.Trim(inputData, "\n")
 	}
-	return strings.Trim(inputData, "\n")
-
+	return inputData
 }
 
 func command(q *model.Question) {

@@ -126,12 +126,21 @@ func AddTask(tip string, color_option int, tasks ...string) string {
 		cl.BoldCyan.Printf(" %d. %s\n", k+1, t)
 	}
 	cl.BoldRed.Printf("My selection is: ")
-	reader := bufio.NewReader(os.Stdin)
-	option, err := reader.ReadString('\n')
-	if err != nil {
-		panic(err)
+
+	var option string // my selection
+	var err error
+
+	if isWindows {
+		fmt.Scanf("%s", &option)
+	} else {
+		reader := bufio.NewReader(os.Stdin)
+		option, err = reader.ReadString('\n')
+		if err != nil {
+			panic(err)
+		}
+		option = strings.Trim(option, "\n")
 	}
-	option = strings.Trim(option, "\n")
+
 	re := `^[1-9][0-9]*$`
 	res := regexp.MustCompile(re)
 	str := res.FindAllString(option, -1)
@@ -203,11 +212,20 @@ func SelectOne(desc, tip string, color_option int, t model.Tasker) int {
 		cl.BoldCyan.Printf(" %d. %s\n", k+1, t)
 	}
 	cl.BoldRed.Printf("My selection is: ")
-	reader := bufio.NewReader(os.Stdin)
-	option, err := reader.ReadString('\n')
-	if err != nil {
-		panic(err)
+
+	var option string //selection
+	var err error
+
+	if isWindows {
+		fmt.Scanf("%s", &option)
+	} else {
+		reader := bufio.NewReader(os.Stdin)
+		option, err = reader.ReadString('\n')
+		if err != nil {
+			panic(err)
+		}
 	}
+
 	option = strings.Trim(option, "\n")
 	re := `^[1-9][0-9]*$`
 	res := regexp.MustCompile(re)

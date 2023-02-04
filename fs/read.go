@@ -28,10 +28,11 @@ func ReadAndReplace(file string, replace map[string]string) error {
 	if err != nil {
 		return err
 	}
+	var new_content string = string(content)
 	for k, v := range replace {
-		content = strings.ReplaceAll(string(content), k, v)
+		new_content = strings.ReplaceAll(string(new_content), k, v)
 	}
-	WriteString(file, content)
+	WriteString(file, new_content)
 	return nil
 }
 

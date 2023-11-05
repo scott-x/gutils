@@ -6,9 +6,7 @@
  */
 package parse
 
-import (
-	"gopkg.in/russross/blackfriday.v2"
-)
+import "github.com/russross/blackfriday/v2"
 
 func MKD(mkdtext string) string {
 	input := []byte(mkdtext)
